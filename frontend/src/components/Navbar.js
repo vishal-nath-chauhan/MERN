@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/logo.png";
+import { UserContext } from "../App";
 
 const Navbar = () => {
+	const { state, dispatch } = useContext(UserContext);
+
 	return (
 		<>
 			<nav
@@ -11,10 +14,7 @@ const Navbar = () => {
 					background: "linear-gradient(to right, #F9F9F9, #A6A6FFC2)",
 				}}
 			>
-				<div
-					className="navbar-collapse"
-					id="navbarSupportedContent"
-				>
+				<div className="navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav ">
 						<li className="nav-item">
 							<NavLink to="/" className="nav-link">
@@ -45,23 +45,28 @@ const Navbar = () => {
 							</NavLink>
 						</li>
 
-						<li className="nav-item">
-							<NavLink to="/signin" className="nav-link">
-								SignIn
-							</NavLink>
-						</li>
+						{!state ? (
+							<>
+								<li className="nav-item">
+									<NavLink to="/signin" className="nav-link">
+										SignIn
+									</NavLink>
+								</li>
+								<li className="nav-item">
+									<NavLink to="/signup" className="nav-link">
+										SignUp
+									</NavLink>
+								</li>
+							</>
+						) : null}
 
-						<li className="nav-item">
-							<NavLink to="/signup" className="nav-link">
-								SignUp
-							</NavLink>
-						</li>
-
-						<li className="nav-item">
-							<NavLink to="/logout" className="nav-link">
-								Logout
-							</NavLink>
-						</li>
+						{state ? (
+							<li className="nav-item">
+								<NavLink to="/logout" className="nav-link">
+									Logout
+								</NavLink>
+							</li>
+						) : null}
 					</ul>
 				</div>
 			</nav>

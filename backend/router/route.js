@@ -143,9 +143,9 @@ router.post("/contact", Authenticate, async (req, res) => {
 	}
 });
 
-router.post("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
 	try {
-		res.clearCookies("jwttoken", { path: "/" });
+		res.clearCookie("jwttoken", { path: "/" });
 		res.status(200).send("User Logout");
 	} catch (err) {
 		console.log("error in contact ", err);
