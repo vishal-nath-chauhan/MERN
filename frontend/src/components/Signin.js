@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import "./css/signup.css";
 import Navbar from "./Navbar";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Loader from "react-loader-spinner";
+import {UserContext} from '../App'
 const Signin = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [load, setLoad] = useState(false);
-
+const {state,dispatch} = useContext(UserContext)
   const sendData = async (e) => {
     e.preventDefault();
     setLoad(true);
@@ -20,6 +21,7 @@ const Signin = () => {
       })
       .then((res) => {
         setLoad(false);
+        dispatch({payload:true,type:'USER'})
       })
       .catch((err) => {
         console.log("Login failed ", err);

@@ -7,9 +7,17 @@ import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import Logout from "./components/Logout";
 import { Switch, Route } from "react-router-dom";
+import {createContext,useReducer} from 'react';
+import {reducer,initialState} from './reducer/UserReducer';
+export 	const UserContext=createContext();
+
 function App() {
+
+const [state, dispatch] = useReducer(reducer, initialState)
+
 	return (
 		<div className="App">
+		<UserContext.Provider value={{state,dispatch}}>
 			<Switch>
 				<Route exact path="/" component={Home}></Route>
 
@@ -21,6 +29,8 @@ function App() {
 
 				<Route path="*" component={NotFound}></Route>
 			</Switch>
+		</UserContext.Provider>
+
 		</div>
 	);
 }
